@@ -1,0 +1,83 @@
+﻿@model List<CustomerClean.Domain.Models.Services_tbl>
+
+<div class="content-wrapper">
+    <!-- Content -->
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="py-3 breadcrumb-wrapper mb-4">
+            اطلاعات نوع خدمات
+        </h4>
+        <!-- Sticky Actions -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12 mx-auto">
+                                <div class="content-wrapper">
+                                    <!-- Content -->
+                                    <div class="container-xxl flex-grow-1 container-p-y">
+
+
+                                        <!-- Ajax Sourced Server-side -->
+                                        <a class="btn btn-warning" href="/Services/CreateServices">افزودن</a>
+                                        <h5 class="card-header"> نوع خدمات</h5>
+                                        <div class="card-datatable text-nowrap">
+                                            <table  class="datatables-ajax table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>نام </th>
+                                                       
+                                                        <th>ویرایش</th>
+                                                        <th>حذف</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        <tr>
+                                                            <th scope="row">@item.Service_Name</th>
+                                                           
+                                                            <td><a href="/Services/EditeServices/@item.id" class="btn btn-warning">ویرایش</a></td>
+                                                            <td><a onclick="DelContact('@item.id')" class="btn btn-danger text-white">حذف</a></td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!--/ Ajax Sourced Server-side -->
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /Sticky Actions -->
+</div>
+<script>
+    function DelContact(id) {
+        Swal.fire({
+            title: 'آیا مطمئنید؟',
+            text: "این عمل قابل بازگشت نخواهد بود!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'بله، حذف کن!',
+            cancelButtonText: 'انصراف',
+            customClass: {
+                confirmButton: 'btn btn-primary me-3',
+                cancelButton: 'btn btn-label-secondary'
+            },
+            buttonsStyling: false
+        }).then(function (result) {
+            if (result.value) {
+                window.location = "/DeleteServices/" + id;
+            }
+        });
+    }
+</script>
